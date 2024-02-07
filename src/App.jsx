@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import "./App.css";
 import { useFetch } from "./hooks/useFetch.js";
+import "./App.css";
 import { useGetLocation } from "./hooks/useGetLocation.js";
 import MainWeather from "./components/MainWeather.jsx";
 import ForecastBody from "./components/ForecastBody.jsx";
@@ -10,12 +10,15 @@ import DefaultWidget from "./components/DefaultWidget.jsx";
 import { TempContext } from "./context/util-context.jsx";
 import IconWidget from "./components/IconWidget.jsx";
 import Loader from "./components/Loader.jsx";
+import MsgWidget from "./components/MsgWidget.jsx";
+import Theme from "./components/Theme.jsx";
 import {
   Celsius,
   calculateDewPoint,
   getWindDirection,
   getTemperatureMessage,
   getDaylightStatus,
+  convertEpochToDate,
 } from "./util/util.js";
 
 import humidityLogo from "./assets/icons/humidity.svg";
@@ -24,8 +27,7 @@ import windLogo from "./assets/icons/wind.svg";
 import pressureLogo from "./assets/icons/pressure.svg";
 import welcomeLogo from "./assets/weather.svg";
 import errorLogo from "./assets/error.svg";
-import MsgWidget from "./components/MsgWidget.jsx";
-import Theme from "./components/Theme.jsx";
+
 
 function App() {
   function handleSubmit(e) {
@@ -81,15 +83,12 @@ function App() {
     };
   }
 
-
-  
-  
-
   const { data, list, errorMsg, isLoading, denied } = useFetch(  "", userLocation );
   console.log();
   const country = data && data.cod == 200 ? data.city : "";
-  const mainTemp =
-    data && data.cod == 200 ? Celsius(data.list[0].main.temp) : "";
+  const minTemp =  data && data.cod == 200 ? Celsius(data.list[0].main.temp_min) : "";
+  const maxTemp =  data && data.cod == 200 ? Celsius(data.list[0].main.temp_max) : "";
+  const mainTemp =  data && data.cod == 200 ? Celsius(data.list[0].main.temp) : "";
   const mainDetails = data && data.cod == 200 ? data.list[0].main : "";
   const windDetails = data && data.cod == 200 ? data.list[0].wind : "";
   const initDetails = data && data.cod == 200 ? data.list[0].main : "";
@@ -97,10 +96,10 @@ function App() {
 
   const ctxValue = {
     maintemp: mainTemp,
-    mintemp: 10,
-    max: 22,
-    sunrise: 176000000,
-    sunset: 176243434535,
+    mintemp: minTemp,
+    max: maxTemp,
+    sunrise: country? convertEpochToDate(country.sunrise) : undefined,
+    sunset: country? convertEpochToDate(country.sunset): undefined,
   };
 
   return (
@@ -125,6 +124,7 @@ function App() {
               </form>
             </div>
           </header>
+
           <Theme theme={theme} onSubmit={setTheme} />
 
           {!data && denied && !isLoading && !loading && !isEmpty && (

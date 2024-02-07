@@ -1,5 +1,5 @@
 .daylight {
-  background: url("assets/daylight4.jpg");
+  background: url("assets/daylight.webp");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -9,10 +9,10 @@
 }
 
 .daylight-rgba {
-  background: rgb(222, 208, 79);
+  background: #fbd0bb;
   background: linear-gradient(
     0deg,
-    rgba(222, 208, 79, 1) 0%,
+    #fbd0bb 0%,
     rgba(144, 212, 240, 1) 100%
   );
   animation: backgroundChange 1s ease 0s 1 normal forwards;
@@ -26,7 +26,7 @@ animation: backgroundChange 1s ease 0s 1 normal forwards;
 }
 
 .night {
-  background: url("assets/night.jpg");
+  background: url("assets/night.webp");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

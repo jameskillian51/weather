@@ -24,8 +24,7 @@ export function useFetch(initial, location = null) {
                         navigator.geolocation.getCurrentPosition(resolve, reject);
                     });
 
-                    latitude = position.coords.latitude;
-                    console.log(position)
+                    latitude = position.coords.latitude;                    
                     longitude = position.coords.longitude;
                 }
 
