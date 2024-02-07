@@ -28,7 +28,7 @@ export default function MainWeather({
       </div>
       <div className="weather-main-stat">
         <span className="weather-date">{`${convertTo12HourFormat(time)}, ${formatDate(date)}`}</span>
-        <span className="location-name">{country}</span>
+        <span className="location-name">{`${country.name}, ${country.country}`}</span>
         <h1 className="main-temp">{maintemp.maintemp}°C</h1>
         <span className="weather-desc">{description}</span>
       </div>

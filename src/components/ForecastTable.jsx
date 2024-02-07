@@ -59,7 +59,7 @@ export default function ForecastTable({ list }) {
               <TemperatureProgressBar
                 maxTemp={weather.main.temp_max}
                 minTemp={weather.main.temp_min}
-                currentTemp={weather.main.feels_like}
+                currentTemp={weather.main.temp}
               />
               <span className="max-temp">{Celsius(calcTemperature.max)}°C</span>
             </div>

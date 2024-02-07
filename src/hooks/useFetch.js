@@ -6,6 +6,7 @@ export function useFetch(initial, location = null) {
     const ApiKey = "f810ca1cc126561b1d51aa0ed2021812";
 
     let errorMsg = useRef();
+    const deniedLocation = useRef();
 
     useEffect(() => {
         async function getWeather() {
@@ -44,10 +45,12 @@ export function useFetch(initial, location = null) {
                         latitude,
                         longitude,
                     });
+                    
                 }
             } catch (error) {
-                console.log(error);
-                errorMsg.current = `Error getting geolocation or weather data: ${error.message}`;
+                /* console.log(error); */
+                deniedLocation.current = error.code == 1 ? true : false;
+                errorMsg.current = `Error getting geolocation: ${error.message}`;
             }
 
             setIsLoading(false);
@@ -61,5 +64,6 @@ export function useFetch(initial, location = null) {
         list: fetchData.list,
         errorMsg,
         isLoading,
+        denied: deniedLocation
     };
 }

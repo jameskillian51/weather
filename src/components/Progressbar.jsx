@@ -2,7 +2,7 @@ import  { useEffect, useState } from "react";
 
 const TemperatureProgressBar = ({ minTemp, maxTemp, currentTemp }) => {
   const [percentage, setPercentage] = useState(0);
-
+let random = Math.round(Math.random(10,100) * 100) ;
   useEffect(() => {
     const tempPercentage =
       ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
@@ -19,6 +19,7 @@ const TemperatureProgressBar = ({ minTemp, maxTemp, currentTemp }) => {
         backgroundColor: "#232937",
         position: "relative",
         borderRadius: "20px",
+        overflow: 'hidden'
       }}
     >
       <div
@@ -26,7 +27,7 @@ const TemperatureProgressBar = ({ minTemp, maxTemp, currentTemp }) => {
           height: "100%",
           backgroundColor: "#85d5c4",
           transition: "width 0.5s ease-in-out",
-          width: `${percentage}%`,
+          width: `${(percentage > 0 && percentage < 100) ? percentage:random }%`,
           borderRadius: "20px",
         }}
       ></div>

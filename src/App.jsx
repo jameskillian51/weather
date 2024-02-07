@@ -15,7 +15,7 @@ import {
   calculateDewPoint,
   getWindDirection,
   getTemperatureMessage,
-  getDaylightStatus
+  getDaylightStatus,
 } from "./util/util.js";
 
 import humidityLogo from "./assets/icons/humidity.svg";
@@ -54,13 +54,11 @@ function App() {
 
   const input = useRef();
 
-
-const [theme, setTheme] = useState(getDaylightStatus());
+  const [theme, setTheme] = useState(getDaylightStatus());
   const [sendValue, setSendValue] = useState({
     value: "",
     state: false,
   });
-
 
   const {
     data: location,
@@ -74,18 +72,22 @@ const [theme, setTheme] = useState(getDaylightStatus());
       ? location.length === 0
       : false;
 
-  const userLocation = !location
-    ? null
-    : {
-        lat: location[0].lat,
-        long: location[0].lon,
-      };
+  let userLocation = null;
 
-  //console.log(location);
+  if (Array.isArray(location) && location.length > 0 && typeof(location) !== 'undefined') {
+    userLocation = {
+      lat: location[0].lat,
+      long: location[0].lon,
+    };
+  }
 
-  const { data, list, errorMsg, isLoading } = useFetch("", userLocation);
-  console.log(data.cod == "200");
-  const country = data && data.cod == 200 ? data.city.name : "";
+
+  
+  
+
+  const { data, list, errorMsg, isLoading, denied } = useFetch(  "", userLocation );
+  console.log();
+  const country = data && data.cod == 200 ? data.city : "";
   const mainTemp =
     data && data.cod == 200 ? Celsius(data.list[0].main.temp) : "";
   const mainDetails = data && data.cod == 200 ? data.list[0].main : "";
@@ -103,7 +105,7 @@ const [theme, setTheme] = useState(getDaylightStatus());
 
   return (
     <TempContext.Provider value={ctxValue}>
-      <section className={"weather-body "+theme}>
+      <section className={"weather-body " + theme}>
         <section className="weather-hold">
           <header>
             <div className="group">
@@ -123,20 +125,22 @@ const [theme, setTheme] = useState(getDaylightStatus());
               </form>
             </div>
           </header>
-          <Theme 
-          theme={theme}
-          onSubmit={setTheme}
-          />
-          <MsgWidget
-            icon={welcomeLogo}
-            header="Explore the 3-Hour Weather Forcast"
-            subtext=" Find your city or enable location services for accurate results"
-          />
-          <MsgWidget
-            icon={errorLogo}
-            header="Oops, we encountered an error"
-            subtext="Sorry we couldn't find that location"
-          />
+          <Theme theme={theme} onSubmit={setTheme} />
+
+          {!data && denied && !isLoading && !loading && !isEmpty && (
+            <MsgWidget
+              icon={welcomeLogo}
+              header="Explore the 3-Hour Weather Forcast"
+              subtext=" Find your city or enable location services for accurate results"
+            />
+          )}
+          {(isEmpty === true || error) && (
+            <MsgWidget
+              icon={errorLogo}
+              header="Oops, we encountered an error"
+              subtext="Sorry we couldn't find that location"
+            />
+          )}
 
           {(isLoading || loading) && <Loader />}
           {data && data.cod == 200 && !isLoading && !loading && !isEmpty && (
@@ -153,11 +157,11 @@ const [theme, setTheme] = useState(getDaylightStatus());
               <WidgetBody>
                 <IconWidget
                   title="Wind"
-                  value1={Math.floor(windDetails.speed)}
+                  value1={Math.floor(windDetails.speed * 2.237)}
                   icon={windLogo}
                   type1="Wind"
                   unit="MPH"
-                  value2={Math.floor(windDetails.gust)}
+                  value2={Math.floor(windDetails.gust * 2.237)}
                   type2="Gusts"
                   iconText={getWindDirection(windDetails.deg)}
                 />

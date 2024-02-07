@@ -16,8 +16,10 @@ export function useGetLocation(sendValue, setState) {
             try {
                 const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${sendValue.value}&limit=1&appid=${ApiKey}`);
                 const data = await response.json();
+                
                 setFetchData(data);
             } catch (error) {
+                
                 setIsError(error)
             }
             setIsLoading(false)
