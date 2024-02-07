@@ -107,7 +107,7 @@ export function animStyle(weather) {
 
         return 'move-up-down';
 
-    }else {
+    } else {
         return 'move-left-right'
     }
 
