@@ -130,7 +130,7 @@ function App() {
           {!data && denied && !isLoading && !loading && !isEmpty && (
             <MsgWidget
               icon={welcomeLogo}
-              header="Explore the 3-Hour Weather Forcast"
+              header="Explore the 3-Hour Weather Forecast"
               subtext=" Find your city or enable location services for accurate results"
             />
           )}
