@@ -431,7 +431,7 @@ section.forecast-table {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 391px) {
   .forecast-dial > * {
     width: 47.5% !important;
   }
