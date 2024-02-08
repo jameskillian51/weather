@@ -116,7 +116,7 @@ function App() {
 
               <form onSubmit={handleSubmit}>
                 <input
-                  placeholder="Search for your city or country"
+                  placeholder="Search for your country or city"
                   type="search"
                   className="input"
                   ref={input}
