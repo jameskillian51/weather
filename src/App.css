@@ -383,7 +383,7 @@ width: 100% !important;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 430px) {
   .weather {
     flex-direction: column-reverse;
     gap: 10px;
