@@ -5,6 +5,7 @@ export function useGetLocation(sendValue, setState) {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(undefined)
     const ApiKey = import.meta.env.VITE_API_KEY;
+    const GeoUrl = import.meta.env.VITE_GEO_URL;
 
 
     useEffect(() => {
@@ -14,7 +15,7 @@ export function useGetLocation(sendValue, setState) {
         async function fetchData() {
             setIsLoading(true);
             try {
-                const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${sendValue.value}&limit=1&appid=${ApiKey}`);
+                const response = await fetch(`${GeoUrl}?q=${sendValue.value}&limit=1&appid=${ApiKey}`);
                 const data = await response.json();
                 
                 setFetchData(data);

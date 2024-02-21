@@ -5,6 +5,7 @@ export function useFetch(initial, location = null) {
     const [isLoading, setIsLoading] = useState(false);
  
     const ApiKey = import.meta.env.VITE_API_KEY;
+    const ApiUrl = import.meta.env.VITE_FORECAST_URL;
 
     let errorMsg = useRef();
     const deniedLocation = useRef();
@@ -35,7 +36,7 @@ export function useFetch(initial, location = null) {
                     longitude !== fetchData.longitude
                 ) {
                     const response = await fetch(
-                        `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${ApiKey}`
+                        `${ApiUrl}?lat=${latitude}&lon=${longitude}&appid=${ApiKey}`
                     );
 
                     const data = await response.json();
