@@ -85,14 +85,17 @@ function App() {
 
   const { data, list, errorMsg, isLoading, denied } = useFetch(  "", userLocation );
   console.log();
-  const country = data && data.cod == 200 ? data.city : "";
-  const minTemp =  data && data.cod == 200 ? Celsius(data.list[0].main.temp_min) : "";
-  const maxTemp =  data && data.cod == 200 ? Celsius(data.list[0].main.temp_max) : "";
-  const mainTemp =  data && data.cod == 200 ? Celsius(data.list[0].main.temp) : "";
-  const mainDetails = data && data.cod == 200 ? data.list[0].main : "";
-  const windDetails = data && data.cod == 200 ? data.list[0].wind : "";
-  const initDetails = data && data.cod == 200 ? data.list[0].main : "";
-  const weatherDetails = data && data.cod == 200 ? data.list[0].weather[0] : "";
+  const isValidData = data && data.cod == 200;
+
+const country = isValidData ? data.city : "";
+const weatherDetails = isValidData ? data.list[0].weather[0] : "";
+const initDetails = isValidData ? data.list[0].main : "";
+const windDetails = isValidData ? data.list[0].wind : "";
+const mainDetails = isValidData ? data.list[0].main : "";
+const mainTemp = isValidData ? Celsius(data.list[0].main.temp) : "";
+const maxTemp = isValidData ? Celsius(data.list[0].main.temp_max) : "";
+const minTemp = isValidData ? Celsius(data.list[0].main.temp_min) : "";
+
 
   const ctxValue = {
     maintemp: mainTemp,

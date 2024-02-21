@@ -4,7 +4,7 @@ export function useGetLocation(sendValue, setState) {
     const [fetchData, setFetchData] = useState(undefined);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(undefined)
-    const ApiKey = "f810ca1cc126561b1d51aa0ed2021812";
+    const ApiKey = import.meta.env.VITE_API_KEY;
 
 
     useEffect(() => {

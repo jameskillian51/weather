@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 export function useFetch(initial, location = null) {
     const [fetchData, setFetchData] = useState(initial);
     const [isLoading, setIsLoading] = useState(false);
-    const ApiKey = "f810ca1cc126561b1d51aa0ed2021812";
+ 
+    const ApiKey = import.meta.env.VITE_API_KEY;
 
     let errorMsg = useRef();
     const deniedLocation = useRef();
