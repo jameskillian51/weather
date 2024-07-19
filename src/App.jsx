@@ -11,7 +11,7 @@ import { TempContext } from "./context/util-context.jsx";
 import IconWidget from "./components/IconWidget.jsx";
 import Loader from "./components/Loader.jsx";
 import MsgWidget from "./components/MsgWidget.jsx";
-import Theme from "./components/Theme.jsx"; 
+import Theme from "./components/Theme.jsx";
 import {
   Celsius,
   calculateDewPoint,
